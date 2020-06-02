@@ -1,3 +1,7 @@
+# timepass
+Creating some games to help pass time.
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
