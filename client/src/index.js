@@ -47,6 +47,21 @@ class Board extends React.Component {
 	}
 }
 
+const PageEnum = Object.freeze({'Landing':1, 'Waiting':2, 'Game':3,});
+
+class Page extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			page:PageEnum.Landing,
+		};
+	}
+	
+	render() {
+		return <Game/>;
+	}
+}
+
 class Game extends React.Component {
 	constructor(props) {
 		super(props);
@@ -55,7 +70,7 @@ class Game extends React.Component {
 				squares: Array(9).fill(null),
 			}],
 			stepNumber: 0,
-			xIsNext: true,
+			xIsNext: true
 		};
 	}
 	
@@ -145,6 +160,6 @@ function calculateWinner(squares) {
 // ========================================
 
 ReactDOM.render(
-	<Game />,
+	<Page />,
 	document.getElementById('root')
 );
