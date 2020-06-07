@@ -22,10 +22,12 @@ export default class LandingPage extends React.Component {
 	}
 
 	handleSubmit(event) {
+		let message;
 		if(this.state.gameId)
-			alert(this.state.name+' is joining new game ' + this.state.gameId);
+			message = this.state.name+' is joining game ' + this.state.gameId;
 		else
-			alert(this.state.name+' is starting a new game ');
+			message = this.state.name+' is starting a new game.';
+		alert(message);
 		event.preventDefault();
 		this.props.onNewGame(this.state.gameId, this.state.name);
 	}
