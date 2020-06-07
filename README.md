@@ -1,5 +1,5 @@
 # timepass
-Creating some games to help pass time.
+Creating some games to help pass time. This is the client code.
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
