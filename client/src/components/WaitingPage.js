@@ -4,20 +4,31 @@ export default class WaitingPage extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			players:props.players
+			players:props.players,
+			gameId:props.gameId,
 		};
+		
+		this.handlePlay = this.handlePlay.bind(this);
+	}
+	
+	handlePlay() {
+		this.props.onPlayGame();
 	}
 
 	render() {
-		const message = "Waiting for more players to join...";
+		const gameIdMessage = "Share this game id with other players: "+this.state.gameId;
+		const waitMessage = "Waiting for more players to join. Current Players:";
 		const playerList = this.state.players.map(player => {
 				return (<li key={player.userId}>{player.toString()}</li>);
 		});
+		const playMessage = "Play now.";
 		return (
 			<div className='Page'>
 				<hr/>
-				<div>{message}</div>
+				<div>{gameIdMessage}</div>
+				<div>{waitMessage}</div>
 				<ul>{playerList}</ul>
+				<button onClick={()=>this.handlePlay}>{playMessage}</button>
 			</div>
 		);
 	}

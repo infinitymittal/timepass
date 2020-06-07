@@ -20,6 +20,8 @@ export default class Page extends React.Component {
 	
 	startGame(gameId, name) {
 		let isHost = gameId?false:true;
+		if(!gameId)
+			gameId = "game"+Math.ceil((Math.random()*1000)); //TODO: start game on server
 		let userId = "user"+Math.ceil((Math.random()*1000)); //TODO: join game on server
 		let player = new Player(userId, name, isHost);
 		this.setState({
@@ -29,6 +31,10 @@ export default class Page extends React.Component {
 			userId:userId,
 			players:this.state.players.concat(player),
 		});
+	}
+	
+	playGame() {
+		
 	}
 	
 	render() {
@@ -48,6 +54,8 @@ export default class Page extends React.Component {
 				pageToLoad = 
 					(<WaitingPage 
 						players={this.state.players}
+						gameId={this.state.gameId}
+						onPlayGame={()=>this.playGame()}
 					/>);
 				break;
 		}
