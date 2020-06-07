@@ -1,5 +1,7 @@
 import React from 'react';
 
+import LandingPage from './LandingPage.js';
+
 const PageEnum = Object.freeze({'Landing':1, 'Waiting':2, 'Game':3,});
 export default class Page extends React.Component {
 	constructor(props) {
@@ -10,8 +12,7 @@ export default class Page extends React.Component {
 	}
 	
 	render() {
-		
-		return null;
+		return <LandingPage />;
 	}
 }
 
