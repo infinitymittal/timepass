@@ -1,11 +1,13 @@
 import React from 'react';
 
+import {PageEnum} from './Page.js';
+
 export default class LandingPage extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			name: '',
-			gameId: 'GAME',
+			gameId: '',
 		};
 		
 		this.handleNameChange = this.handleNameChange.bind(this);
@@ -22,8 +24,13 @@ export default class LandingPage extends React.Component {
 	}
 
 	handleSubmit(event) {
-		alert('A name was submitted: ' + this.state.name);
+		//Make proper post. Get gameId if needed. Change Page.
+		if(this.state.gameId)
+			alert(this.state.name+' is joining new game ' + this.state.gameId);
+		else
+			alert(this.state.name+' is starting a new game ');
 		event.preventDefault();
+		this.props.onNewGame(this.state.gameId, this.state.name);
 	}
 
 	
@@ -32,14 +39,14 @@ export default class LandingPage extends React.Component {
 		return (
 			<div className='Page'>
 				<div>{message}</div>
+				<hr/>
 				<div>
 					<form onSubmit={this.handleSubmit}>
-						<label>Name:</label>
-						<input type="text" value={this.state.name} onChange={this.handleNameChange} />
+						<input type="text" placeholder="Enter Your Name" value={this.state.name} onChange={this.handleNameChange} />
 						<hr/>
 						<label>
-							Join Game:
-							<input type="text" value={this.state.gameId} onChange={this.handleGameIdChange} />
+							Join Existing Game? 
+							<input type="text" placeholder="Enter Game Id" value={this.state.gameId} onChange={this.handleGameIdChange} />
 						</label>
 						<hr/>
 						<input type="submit" value="Start"/>
