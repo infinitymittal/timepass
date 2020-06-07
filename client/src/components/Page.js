@@ -16,6 +16,7 @@ export default class Page extends React.Component {
 			name:'',
 			userId:'',
 			players:[],
+			currentPlayer:null,
 		};
 	}
 	
@@ -31,6 +32,7 @@ export default class Page extends React.Component {
 			name:name,
 			userId:userId,
 			players:this.state.players.concat(player),
+			currentPlayer: player,
 		});
 	}
 	
@@ -66,8 +68,9 @@ export default class Page extends React.Component {
 					(<PlayingPage 
 						players={this.state.players}
 						gameId={this.state.gameId}
-						onPlayGame={()=>this.playGame()}
-					/>);		}
+						currentPlayer={this.state.currentPlayer}
+					/>);
+		}
 		
 		return (
 			<div className='Page'>
