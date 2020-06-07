@@ -2,6 +2,7 @@ import React from 'react';
 
 import LandingPage from './LandingPage.js';
 import WaitingPage from './WaitingPage.js';
+import PlayingPage from './PlayingPage.js';
 import Player from './Player.js';
 
 export const PageEnum = Object.freeze({'Landing':'Landing', 'Waiting':'Waiting', 'Playing':'Playing',});
@@ -34,7 +35,9 @@ export default class Page extends React.Component {
 	}
 	
 	playGame() {
-		
+		this.setState({
+			page:PageEnum.Playing,
+		});
 	}
 	
 	render() {
@@ -58,7 +61,13 @@ export default class Page extends React.Component {
 						onPlayGame={()=>this.playGame()}
 					/>);
 				break;
-		}
+			case PageEnum.Playing:
+				pageToLoad = 
+					(<PlayingPage 
+						players={this.state.players}
+						gameId={this.state.gameId}
+						onPlayGame={()=>this.playGame()}
+					/>);		}
 		
 		return (
 			<div className='Page'>

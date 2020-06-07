@@ -21,14 +21,14 @@ export default class WaitingPage extends React.Component {
 		const playerList = this.state.players.map(player => {
 				return (<li key={player.userId}>{player.toString()}</li>);
 		});
-		const playMessage = "Play now.";
+		const playButtonText = "Play now";
 		return (
 			<div className='Page'>
 				<hr/>
 				<div>{gameIdMessage}</div>
 				<div>{waitMessage}</div>
 				<ul>{playerList}</ul>
-				<button onClick={()=>this.handlePlay}>{playMessage}</button>
+				<button onClick={()=>this.handlePlay()}>{playButtonText}</button>
 			</div>
 		);
 	}
