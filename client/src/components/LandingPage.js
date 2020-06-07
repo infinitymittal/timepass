@@ -1,7 +1,5 @@
 import React from 'react';
 
-import {PageEnum} from './Page.js';
-
 export default class LandingPage extends React.Component {
 	constructor(props) {
 		super(props);
@@ -24,7 +22,6 @@ export default class LandingPage extends React.Component {
 	}
 
 	handleSubmit(event) {
-		//Make proper post. Get gameId if needed. Change Page.
 		if(this.state.gameId)
 			alert(this.state.name+' is joining new game ' + this.state.gameId);
 		else
@@ -35,10 +32,8 @@ export default class LandingPage extends React.Component {
 
 	
 	render() {
-		const message = 'Time to play Mafia!!';
 		return (
 			<div className='Page'>
-				<div>{message}</div>
 				<hr/>
 				<div>
 					<form onSubmit={this.handleSubmit}>
