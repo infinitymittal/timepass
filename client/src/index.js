@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import Page from './components/Page.js'
 
 function Square(props) {
 	return (
@@ -44,21 +45,6 @@ class Board extends React.Component {
 				</div>
 			</div>
 		);
-	}
-}
-
-const PageEnum = Object.freeze({'Landing':1, 'Waiting':2, 'Game':3,});
-
-class Page extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			page:PageEnum.Landing,
-		};
-	}
-	
-	render() {
-		return <Game/>;
 	}
 }
 
