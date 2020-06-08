@@ -70,6 +70,7 @@ export default class Page extends React.Component {
 						gameId={this.state.gameId}
 						currentPlayer={this.state.currentPlayer}
 					/>);
+				break;
 		}
 		
 		return (
