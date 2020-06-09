@@ -15,10 +15,22 @@ export default class PlayingPage extends React.Component {
 			players:props.players,
 			gameId:props.gameId,
 			phase:PhaseEnum.Discuss1,
+			role:"An Unknown",
 		};
 		this.handleGetRole = this.handleGetRole.bind(this);
 		this.getState = this.getState.bind(this);
 		this.interval = setInterval(this.getState, 1000);
+	}
+	
+	componentDidMount() {
+		fetch('http://localhost:8080/game/game123/player/player123/role')
+			.then(res => res.json())
+			.then(data => {
+				this.setState({
+					role:data.roleName,
+				})
+			})
+			.catch(console.log);
 	}
 	
 	getState() {
@@ -32,8 +44,7 @@ export default class PlayingPage extends React.Component {
 	}
 
 	handleGetRole() {
-		const role = "Mafia"; //TODO get role from server
-		const message = "You are a "+role;
+		const message = "You are a "+this.state.role;
 		alert(message);
 	}
 	

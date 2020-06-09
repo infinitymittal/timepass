@@ -5,12 +5,11 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
-public class WelcomeController {
+public class PlayerController {
 
 	@CrossOrigin(origins = "http://localhost:3000")
-	@RequestMapping("/")
-	public String index() {
-		return "Welcome to Mafia server.";
+	@RequestMapping("/game/{gameId}/player/{playerId}/role")
+	public Role getRole() {
+		return new Role();
 	}
-
 }
