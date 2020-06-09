@@ -17,34 +17,24 @@ export default class PlayingPage extends React.Component {
 			phase:PhaseEnum.Discuss1,
 		};
 		this.handleGetRole = this.handleGetRole.bind(this);
-		this.handlePhaseChange = this.handlePhaseChange.bind(this);
 		this.getState = this.getState.bind(this);
-
-		this.interval = setInterval(this.getState, 5000);
+		this.interval = setInterval(this.getState, 1000);
 	}
 	
 	getState() {
 		const stateChanged = Math.floor(Math.random()*2)===0; //TODO get from server
+		const newPhase = this.getNextPhase(); //TODO get from server
 		if(!stateChanged)
 			return;
 		this.setState({
-			phase:this.getNextPhase(),
+			phase:newPhase,
 		});
 	}
 
-	
-	
-	
 	handleGetRole() {
 		const role = "Mafia"; //TODO get role from server
 		const message = "You are a "+role;
 		alert(message);
-	}
-	
-	handlePhaseChange() {
-		this.setState({
-			phase:this.getNextPhase(),
-		});
 	}
 	
 	getNextPhase() {
@@ -59,12 +49,23 @@ export default class PlayingPage extends React.Component {
 	}
 
 	getPhaseActions() {
-		const nextPhase = this.getNextPhase();
-		const buttonText = "Start "+nextPhase;
-		const phaseActions = (
-			<button onClick={()=>this.handlePhaseChange()}>{buttonText}</button>
-		);
-		return phaseActions;
+		switch(this.state.phase) {
+			default:
+			case PhaseEnum.Discuss1: 
+				return (<div>"Discuss with others."</div>);
+			case PhaseEnum.Vote1:
+				return (
+					<div>"Cast Vote for Initial Voting:Drop down with button."</div> //TODO
+				);
+			case PhaseEnum.Discuss2:
+				return (<div>"Discuss with others."</div>);
+			case PhaseEnum.Vote2:
+				return (
+					<div>"Cast Vote for Final Voting:Drop down with button."</div> //TODO
+				);
+			case PhaseEnum.Night: 
+				return (<div>"Sleep."</div>);;
+		}
 	}
 	
 	render() {
@@ -82,8 +83,8 @@ export default class PlayingPage extends React.Component {
 				<div>{waitMessage}</div>
 				<ul>{playerList}</ul>
 				<button onClick={()=>this.handleGetRole()}>{getRoleText}</button>
-				<div>{phaseMessage}</div>
 				<hr/>
+				<div>{phaseMessage}</div>
 				{phaseActions}
 			</div>
 		);
