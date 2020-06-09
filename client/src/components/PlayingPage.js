@@ -8,8 +8,6 @@ export const PhaseEnum = Object.freeze({
 	'Night':'Sleeping',
 });
 
-const AllowedEnum = Object.freeze({'Yes':'Yes', 'No':'No', 'Checking':'Checking'});
-
 export default class PlayingPage extends React.Component {
 	constructor(props) {
 		super(props);
@@ -17,12 +15,25 @@ export default class PlayingPage extends React.Component {
 			players:props.players,
 			gameId:props.gameId,
 			phase:PhaseEnum.Discuss1,
-			canChangePhase:AllowedEnum.No,
 		};
 		this.handleGetRole = this.handleGetRole.bind(this);
 		this.handlePhaseChange = this.handlePhaseChange.bind(this);
-		this.getCanPhaseChange = this.getCanPhaseChange.bind(this);
+		this.getState = this.getState.bind(this);
+
+		this.interval = setInterval(this.getState, 5000);
 	}
+	
+	getState() {
+		const stateChanged = Math.floor(Math.random()*2)===0; //TODO get from server
+		if(!stateChanged)
+			return;
+		this.setState({
+			phase:this.getNextPhase(),
+		});
+	}
+
+	
+	
 	
 	handleGetRole() {
 		const role = "Mafia"; //TODO get role from server
@@ -33,7 +44,6 @@ export default class PlayingPage extends React.Component {
 	handlePhaseChange() {
 		this.setState({
 			phase:this.getNextPhase(),
-			canChangePhase:AllowedEnum.No,
 		});
 	}
 	
@@ -47,38 +57,14 @@ export default class PlayingPage extends React.Component {
 			case PhaseEnum.Night: return PhaseEnum.Discuss1;
 		}
 	}
-	
-	getCanPhaseChange() {
-		const allowed = Math.floor(Math.random()*2)===0; //TODO get from server
-		if(allowed)
-			this.setState({
-				canChangePhase:AllowedEnum.Yes,
-			});
-		else {
-			this.setState({
-				canChangePhase:AllowedEnum.Checking,
-			});
-			setTimeout(this.getCanPhaseChange, 5000);
-		}
-	}
 
 	getPhaseActions() {
-		switch(this.state.canChangePhase) {
-			default:
-			case AllowedEnum.Yes:
-				const nextPhase = this.getNextPhase();
-				const buttonText = "Start "+nextPhase;
-				const phaseActions = (
-					<button onClick={()=>this.handlePhaseChange()}>{buttonText}</button>
-				);
-				return phaseActions;
-			case AllowedEnum.No:
-				setTimeout(this.getCanPhaseChange, 1000);
-				//fall through
-			case AllowedEnum.Checking:
-				const message = "Waiting to be allowed phase change.";
-				return (<div>{message}</div>);
-		}
+		const nextPhase = this.getNextPhase();
+		const buttonText = "Start "+nextPhase;
+		const phaseActions = (
+			<button onClick={()=>this.handlePhaseChange()}>{buttonText}</button>
+		);
+		return phaseActions;
 	}
 	
 	render() {
